@@ -45,7 +45,6 @@ public class User implements UserDetails {
 
     private String authority;
 
-
     @CreatedDate
     private LocalDateTime createdAt;
 

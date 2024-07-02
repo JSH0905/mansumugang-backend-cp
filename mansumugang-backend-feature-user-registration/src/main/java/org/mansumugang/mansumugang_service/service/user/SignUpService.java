@@ -8,13 +8,16 @@ import org.mansumugang.mansumugang_service.domain.user.User;
 import org.mansumugang.mansumugang_service.dto.auth.signup.*;
 import org.mansumugang.mansumugang_service.exception.UserErrorException;
 import org.mansumugang.mansumugang_service.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SignUpService {
+public class SignUpService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -69,4 +72,8 @@ public class SignUpService {
         }
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
+    }
 }
