@@ -8,6 +8,7 @@ import org.mansumugang.mansumugang_service.domain.user.User;
 import org.mansumugang.mansumugang_service.dto.auth.signup.PatientSignupRequestDto;
 import org.mansumugang.mansumugang_service.dto.auth.signup.ProtectorSignUpRequestDto;
 import org.mansumugang.mansumugang_service.dto.auth.signup.SignUpDto;
+import org.mansumugang.mansumugang_service.dto.auth.signup.SignUpResponseDto;
 import org.mansumugang.mansumugang_service.repository.UserRepository;
 import org.mansumugang.mansumugang_service.service.user.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,9 @@ public class ProtectorSignupTest {
         log.info("dto 작성완료 = {}", protectorSignUpRequestDto.getUsername());
 
         // when
-        SignUpDto newUser = signUpService.protectorSignup(protectorSignUpRequestDto);
+        SignUpDto signUpDto = signUpService.protectorSignup(protectorSignUpRequestDto);
+
+        SignUpResponseDto newUser = SignUpResponseDto.dtoToResponse(signUpDto);
 
         log.info("db 확인 = {}", userRepository.findByUsername("test2"));
 
@@ -57,11 +60,7 @@ public class ProtectorSignupTest {
         log.info("newUSer.userType={}", newUser.getUsertype());
 
         // then
-        // H2 DB에 저장된 모든 회원 정보 조회
-        List<User> users = userRepository.findAll();
-        for (User user : users) {
-            log.info("User: {}", user);
-        }
+
 
         // 필요한 경우, 여기서 추가 검증 로직을 작성합니다.
     }
