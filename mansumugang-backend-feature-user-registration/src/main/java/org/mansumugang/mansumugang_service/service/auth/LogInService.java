@@ -1,4 +1,4 @@
-package org.mansumugang.mansumugang_service.service.user;
+package org.mansumugang.mansumugang_service.service.auth;
 
 import org.springframework.stereotype.Service;
 

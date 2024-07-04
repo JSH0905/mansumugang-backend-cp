@@ -10,16 +10,21 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class LoginResponseDto {
+
+
     private String accessToken;
     private String refreshToken;
+    private String userType;
 
     public static LoginResponseDto of(
             String accessToken,
-            String refreshToken
+            String refreshToken,
+            String userType
     ){
         return LoginResponseDto.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .userType(userType)
                 .build();
     }
 }

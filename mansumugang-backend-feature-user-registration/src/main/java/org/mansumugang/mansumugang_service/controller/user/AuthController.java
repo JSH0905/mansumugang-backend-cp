@@ -5,7 +5,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mansumugang.mansumugang_service.dto.auth.signup.*;
-import org.mansumugang.mansumugang_service.service.user.SignUpService;
+import org.mansumugang.mansumugang_service.service.auth.SignUpService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

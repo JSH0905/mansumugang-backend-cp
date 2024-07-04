@@ -4,18 +4,14 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mansumugang.mansumugang_service.domain.user.User;
-import org.mansumugang.mansumugang_service.dto.auth.signup.PatientSignupRequestDto;
 import org.mansumugang.mansumugang_service.dto.auth.signup.ProtectorSignUpRequestDto;
 import org.mansumugang.mansumugang_service.dto.auth.signup.SignUpDto;
 import org.mansumugang.mansumugang_service.dto.auth.signup.SignUpResponseDto;
 import org.mansumugang.mansumugang_service.repository.UserRepository;
-import org.mansumugang.mansumugang_service.service.user.SignUpService;
+import org.mansumugang.mansumugang_service.service.auth.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
-
-import java.util.List;
 
 @Slf4j
 @SpringBootTest
