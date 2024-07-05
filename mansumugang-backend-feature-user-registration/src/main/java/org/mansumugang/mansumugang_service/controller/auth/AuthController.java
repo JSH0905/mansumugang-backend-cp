@@ -1,17 +1,16 @@
-package org.mansumugang.mansumugang_service.controller.user;
+package org.mansumugang.mansumugang_service.controller.auth;
 
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mansumugang.mansumugang_service.dto.auth.logout.LogoutResponseDto;
 import org.mansumugang.mansumugang_service.dto.auth.signup.*;
-import org.mansumugang.mansumugang_service.service.auth.SignUpService;
+import org.mansumugang.mansumugang_service.service.auth.LogoutService;
+import org.mansumugang.mansumugang_service.service.auth.SignupService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -19,7 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final SignUpService signUpService;
+    private final SignupService signUpService;
+    private final LogoutService logoutService;
+
+    // 로그인 관련
 
     @PostMapping("/signup/patient") // 환자 회원가입
     public ResponseEntity<SignUpResponseDto> patientSignup(
@@ -48,7 +50,7 @@ public class AuthController {
         // 아이디 중복 확인
         signUpService.checkUsernameDuplication(usernameDuplicationCheckDto);
 
-        // 성공 로직(responeDto로 변환 및 반환)
+        // 성공 로직(responeDto 로 변환 및 반환)
         return new ResponseEntity<>(new UsernameDuplicationCheckResponseDto(), HttpStatus.OK);
 
     }
@@ -65,4 +67,17 @@ public class AuthController {
         return new ResponseEntity<>(new NicknameDuplicationCheckResponseDto(), HttpStatus.OK);
     }
 
+    // 로그아웃
+    @PostMapping("/logout")
+    public ResponseEntity<LogoutResponseDto> logout(
+            @RequestHeader("Authorization-refresh") String refreshToken
+    ){
+        logoutService.logout(refreshToken);
+
+        return new ResponseEntity<>(new LogoutResponseDto(), HttpStatus.CREATED);
+
+    }
+
+
+    // 토큰 재발행
 }

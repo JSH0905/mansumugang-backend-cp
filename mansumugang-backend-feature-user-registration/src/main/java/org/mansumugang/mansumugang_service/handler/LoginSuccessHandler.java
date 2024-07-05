@@ -32,7 +32,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
         log.info("LoginSuccessHandler 호출");
 
-        // SecurityContext에서 UserDetails 객체 가져오기
+        // SecurityContext 에서 UserDetails 객체 가져오기
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userType = ((User)userDetails).getUsertype();
 

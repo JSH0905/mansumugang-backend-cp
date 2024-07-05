@@ -8,7 +8,7 @@ import org.mansumugang.mansumugang_service.dto.auth.signup.PatientSignupRequestD
 import org.mansumugang.mansumugang_service.dto.auth.signup.SignUpDto;
 import org.mansumugang.mansumugang_service.dto.auth.signup.SignUpResponseDto;
 import org.mansumugang.mansumugang_service.repository.UserRepository;
-import org.mansumugang.mansumugang_service.service.auth.SignUpService;
+import org.mansumugang.mansumugang_service.service.auth.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
@@ -19,7 +19,7 @@ public class PatientSignupTest {
 
 
     @Autowired
-    private SignUpService signUpService;
+    private SignupService signUpService;
     @Autowired
     private UserRepository userRepository;
 
