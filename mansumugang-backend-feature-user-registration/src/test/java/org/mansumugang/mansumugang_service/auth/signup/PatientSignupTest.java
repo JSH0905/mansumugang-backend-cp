@@ -1,10 +1,11 @@
-package org.mansumugang.mansumugang_service.auth;
+package org.mansumugang.mansumugang_service.auth.signup;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mansumugang.mansumugang_service.dto.auth.signup.ProtectorSignUpRequestDto;
+import org.mansumugang.mansumugang_service.dto.auth.login.LoginRequestDto;
+import org.mansumugang.mansumugang_service.dto.auth.signup.PatientSignupRequestDto;
 import org.mansumugang.mansumugang_service.dto.auth.signup.SignUpDto;
 import org.mansumugang.mansumugang_service.dto.auth.signup.SignUpResponseDto;
 import org.mansumugang.mansumugang_service.repository.UserRepository;
@@ -15,7 +16,7 @@ import org.springframework.test.annotation.Rollback;
 
 @Slf4j
 @SpringBootTest
-public class ProtectorSignupTest {
+public class PatientSignupTest {
 
 
     @Autowired
@@ -24,7 +25,7 @@ public class ProtectorSignupTest {
     private UserRepository userRepository;
 
     @Test
-    @DisplayName("보호자 회원가입 테스트")
+    @DisplayName("환자 회원가입 테스트")
     @Transactional
     @Rollback(value = true)
     public void signupTest() {
@@ -32,32 +33,36 @@ public class ProtectorSignupTest {
         log.info("회원가입 시작");
 
         // given
-        log.info("ProtectorSignupRequestDto 작성 시작");
-        ProtectorSignUpRequestDto protectorSignUpRequestDto = new ProtectorSignUpRequestDto();
-        protectorSignUpRequestDto.setUsername("test2");
-        protectorSignUpRequestDto.setPassword("qazwsxwjd603905!");
-        protectorSignUpRequestDto.setPasswordCheck("qazwsxwjd603905!");
-        protectorSignUpRequestDto.setName("테스터2");
-        protectorSignUpRequestDto.setBirthdate("2000-09-05");
-        protectorSignUpRequestDto.setNickname("kkOma_fan");
-        protectorSignUpRequestDto.setEmail("2000tjdgns@naver.com");
+        log.info("signupRequestDto 작성");
+        PatientSignupRequestDto patientSignupRequestDto = new PatientSignupRequestDto();
+        patientSignupRequestDto.setUsername("test1");
+        patientSignupRequestDto.setPassword("qazwsxwjd603905!");
+        patientSignupRequestDto.setPasswordCheck("qazwsxwjd603905!");
+        patientSignupRequestDto.setName("테스터1");
+        patientSignupRequestDto.setBirthdate("2000-09-05");
+        patientSignupRequestDto.setTelephone("010-6209-6156");
 
-        log.info("dto 작성완료 = {}", protectorSignUpRequestDto.getUsername());
+        log.info("dto 작성완료 = {}", patientSignupRequestDto.getUsername());
 
         // when
-        SignUpDto signUpDto = signUpService.protectorSignup(protectorSignUpRequestDto);
+        SignUpDto signUpDto = signUpService.patientSignup(patientSignupRequestDto);
+
 
         SignUpResponseDto newUser = SignUpResponseDto.dtoToResponse(signUpDto);
 
-        log.info("db 확인 = {}", userRepository.findByUsername("test2"));
+        log.info("db 확인 = {}", userRepository.findByUsername("test1"));
 
         log.info("newUser.name={}", newUser.getUsername());
         log.info("newUSer.authority={}", newUser.getAuthority());
         log.info("newUSer.userType={}", newUser.getUsertype());
+        log.info("회원가입 완료");
 
         // then
+        log.info("로그인 테스트 시작");
+        LoginRequestDto loginRequestDto = new LoginRequestDto();
 
-
+        loginRequestDto.setUsername("test1");
+        loginRequestDto.setPassword("qazwsxwjd603905!");
         // 필요한 경우, 여기서 추가 검증 로직을 작성합니다.
     }
 }

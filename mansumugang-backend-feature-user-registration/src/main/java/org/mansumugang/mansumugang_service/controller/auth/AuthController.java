@@ -6,7 +6,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mansumugang.mansumugang_service.dto.auth.logout.LogoutResponseDto;
 import org.mansumugang.mansumugang_service.dto.auth.signup.*;
+import org.mansumugang.mansumugang_service.dto.auth.token.ReissueTokenDto;
+import org.mansumugang.mansumugang_service.dto.auth.token.ReissueTokenResponseDto;
 import org.mansumugang.mansumugang_service.service.auth.LogoutService;
+import org.mansumugang.mansumugang_service.service.auth.ReIssueTokenService;
 import org.mansumugang.mansumugang_service.service.auth.SignupService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,7 @@ public class AuthController {
 
     private final SignupService signUpService;
     private final LogoutService logoutService;
+    private final ReIssueTokenService reIssueTokenService;
 
     // 로그인 관련
 
@@ -78,6 +82,14 @@ public class AuthController {
 
     }
 
-
     // 토큰 재발행
+    @PostMapping("/refreshToken")
+    public ResponseEntity<ReissueTokenResponseDto> reIssueToken(
+        @RequestHeader("Authorization") String accessToken,
+        @RequestHeader("Authorization-refresh") String refreshToken
+    ){
+        ReissueTokenDto reissueTokenDto = reIssueTokenService.reissueToken(accessToken, refreshToken);
+
+        return new ResponseEntity<>(ReissueTokenResponseDto.fromDto(reissueTokenDto), HttpStatus.CREATED);
+    }
 }

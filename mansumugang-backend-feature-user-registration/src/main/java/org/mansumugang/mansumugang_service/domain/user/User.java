@@ -43,7 +43,7 @@ public class User implements UserDetails {
 
     private String usertype; // 환자, 보호자 구분
 
-    private String authority;
+    private String authority; // 사용자 권한 : User / Admin
 
     @CreatedDate
     private LocalDateTime createdAt;
